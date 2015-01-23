@@ -1,0 +1,14 @@
+[Unit]
+Description=OpenStack Neutron Layer 3 Agent
+After=syslog.target network.target
+
+[Service]
+Type=notify
+User=neutron
+ExecStart=/usr/bin/neutron-l3-agent --config-file /usr/share/defaults/neutron/neutron.conf --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/l3_agent.ini
+PrivateTmp=false
+NotifyAccess=all
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target

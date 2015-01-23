@@ -1,0 +1,20 @@
+From a91d1970f2e59ded4df6b2105b39b861089832b4 Mon Sep 17 00:00:00 2001
+From: Alberto Murillo <alberto.murillo.silva@intel.com>
+Date: Fri, 5 Jun 2015 16:23:35 -0500
+Subject: [PATCH 1/2] neutron sudoers entry
+
+---
+ neutron.sudoers | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 neutron.sudoers
+
+diff --git a/neutron.sudoers b/neutron.sudoers
+new file mode 100644
+index 0000000..e3b8d7b
+--- /dev/null
++++ b/neutron.sudoers
+@@ -0,0 +1 @@
++neutron ALL = (root) NOPASSWD: /usr/bin/neutron-rootwrap /usr/share/neutron/rootwrap.conf *
+-- 
+2.1.0
+

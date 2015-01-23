@@ -1,0 +1,25 @@
+From 2fc4ca0d5b648a674329de38215955265d0331c6 Mon Sep 17 00:00:00 2001
+From: Alberto Murillo <alberto.murillo.silva@intel.com>
+Date: Wed, 10 Jun 2015 17:07:15 -0500
+Subject: [PATCH] change dnsmasq location
+
+---
+ etc/neutron/rootwrap.d/dhcp.filters | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/etc/neutron/rootwrap.d/dhcp.filters b/etc/neutron/rootwrap.d/dhcp.filters
+index 20d2800..ed1069c 100644
+--- a/etc/neutron/rootwrap.d/dhcp.filters
++++ b/etc/neutron/rootwrap.d/dhcp.filters
+@@ -14,7 +14,7 @@ dnsmasq: CommandFilter, dnsmasq, root
+ # it looks like these are the only signals needed, per
+ # neutron/agent/linux/dhcp.py
+ kill_dnsmasq: KillFilter, root, /sbin/dnsmasq, -9, -HUP
+-kill_dnsmasq_usr: KillFilter, root, /usr/sbin/dnsmasq, -9, -HUP
++kill_dnsmasq_usr: KillFilter, root, /usr/bin/dnsmasq, -9, -HUP
+ 
+ ovs-vsctl: CommandFilter, ovs-vsctl, root
+ ivs-ctl: CommandFilter, ivs-ctl, root
+-- 
+2.1.0
+

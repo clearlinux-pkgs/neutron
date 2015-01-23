@@ -1,0 +1,16 @@
+rm -rf %{buildroot}/usr/etc
+
+install -d -m 755 %{buildroot}/usr/share/defaults/neutron
+install -p -D -m 644 etc/*.conf %{buildroot}/usr/share/defaults/neutron/
+install -p -D -m 644 etc/*.ini %{buildroot}/usr/share/defaults/neutron/
+install -p -D -m 644 etc/*.json %{buildroot}/usr/share/defaults/neutron/
+
+install -d -m 755 %{buildroot}/usr/share/neutron/rootwrap.d
+mv %{buildroot}/usr/share/defaults/neutron/rootwrap.conf %{buildroot}/usr/share/neutron/
+install -p -D -m 640 etc/neutron/rootwrap.d/*.filters %{buildroot}/usr/share/neutron/rootwrap.d/
+
+install -d -m 755 %{buildroot}/usr/share/neutron/plugins
+mv etc/neutron/plugins/* %{buildroot}/usr/share/neutron/plugins/
+
+install -d -m 750 %{buildroot}/usr/share/defaults/sudo/sudoers.d
+install -p -D -m 440 neutron.sudoers %{buildroot}/usr/share/defaults/sudo/sudoers.d/neutron
