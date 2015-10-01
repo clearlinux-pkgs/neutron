@@ -1,14 +1,14 @@
-From 6fbc50f83c742438298fce5c9ee9f72f23ffd761 Mon Sep 17 00:00:00 2001
+From 9abbfe0a4619355e916d87c67f2ba0b35546bef7 Mon Sep 17 00:00:00 2001
 From: Alberto Murillo <alberto.murillo.silva@intel.com>
 Date: Fri, 5 Jun 2015 16:25:01 -0500
-Subject: [PATCH 2/2] move rootwrap location
+Subject: [PATCH 2/4] move rootwrap location
 
 ---
  etc/rootwrap.conf | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/etc/rootwrap.conf b/etc/rootwrap.conf
-index dee1dd9..cffc7f3 100644
+index 3a6b11f..81709e0 100644
 --- a/etc/rootwrap.conf
 +++ b/etc/rootwrap.conf
 @@ -4,7 +4,7 @@
@@ -21,5 +21,5 @@ index dee1dd9..cffc7f3 100644
  # List of directories to search executables in, in case filters do not
  # explicitely specify a full path (separated by ',')
 -- 
-2.1.0
+2.4.3
 

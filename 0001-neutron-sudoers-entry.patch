@@ -1,7 +1,7 @@
-From a91d1970f2e59ded4df6b2105b39b861089832b4 Mon Sep 17 00:00:00 2001
+From 9cbb89c01ab75c3879139f6009a2fb72e7423061 Mon Sep 17 00:00:00 2001
 From: Alberto Murillo <alberto.murillo.silva@intel.com>
 Date: Fri, 5 Jun 2015 16:23:35 -0500
-Subject: [PATCH 1/2] neutron sudoers entry
+Subject: [PATCH 1/4] neutron sudoers entry
 
 ---
  neutron.sudoers | 1 +
@@ -16,5 +16,5 @@ index 0000000..e3b8d7b
 @@ -0,0 +1 @@
 +neutron ALL = (root) NOPASSWD: /usr/bin/neutron-rootwrap /usr/share/neutron/rootwrap.conf *
 -- 
-2.1.0
+2.4.3
 
