@@ -90,3 +90,6 @@ unittest2-python
 waitress-python
 WebOb-python
 WebTest
+funcsigs
+oslo.versionedobjects
+oslo.policy
