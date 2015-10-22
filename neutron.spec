@@ -4,15 +4,16 @@
 #
 Name     : neutron
 Version  : 7.0.0
-Release  : 40
+Release  : 41
 URL      : http://tarballs.openstack.org/neutron/neutron-7.0.0.tar.gz
 Source0  : http://tarballs.openstack.org/neutron/neutron-7.0.0.tar.gz
 Source1  : neutron-dhcp-agent.service
 Source2  : neutron-l3-agent.service
-Source3  : neutron-metadata-agent.service
-Source4  : neutron-openvswitch-agent.service
-Source5  : neutron-server.service
-Source6  : neutron.tmpfiles
+Source3  : neutron-linuxbridge-agent.service
+Source4  : neutron-metadata-agent.service
+Source5  : neutron-openvswitch-agent.service
+Source6  : neutron-server.service
+Source7  : neutron.tmpfiles
 Summary  : OpenStack Networking
 Group    : Development/Tools
 License  : Apache-2.0
@@ -213,11 +214,12 @@ python2 -tt setup.py build -b py2 install --root=%{buildroot}
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/neutron-dhcp-agent.service
 install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/neutron-l3-agent.service
-install -m 0644 %{SOURCE3} %{buildroot}/usr/lib/systemd/system/neutron-metadata-agent.service
-install -m 0644 %{SOURCE4} %{buildroot}/usr/lib/systemd/system/neutron-openvswitch-agent.service
-install -m 0644 %{SOURCE5} %{buildroot}/usr/lib/systemd/system/neutron-server.service
+install -m 0644 %{SOURCE3} %{buildroot}/usr/lib/systemd/system/neutron-linuxbridge-agent.service
+install -m 0644 %{SOURCE4} %{buildroot}/usr/lib/systemd/system/neutron-metadata-agent.service
+install -m 0644 %{SOURCE5} %{buildroot}/usr/lib/systemd/system/neutron-openvswitch-agent.service
+install -m 0644 %{SOURCE6} %{buildroot}/usr/lib/systemd/system/neutron-server.service
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
-install -m 0644 %{SOURCE6} %{buildroot}/usr/lib/tmpfiles.d/neutron.conf
+install -m 0644 %{SOURCE7} %{buildroot}/usr/lib/tmpfiles.d/neutron.conf
 ## make_install_append content
 rm -rf %{buildroot}/usr/etc
 install -d -m 755 %{buildroot}/usr/share/defaults/neutron
@@ -271,6 +273,7 @@ install -p -D -m 440 neutron.sudoers %{buildroot}/usr/share/defaults/sudo/sudoer
 %defattr(-,root,root,-)
 /usr/lib/systemd/system/neutron-dhcp-agent.service
 /usr/lib/systemd/system/neutron-l3-agent.service
+/usr/lib/systemd/system/neutron-linuxbridge-agent.service
 /usr/lib/systemd/system/neutron-metadata-agent.service
 /usr/lib/systemd/system/neutron-openvswitch-agent.service
 /usr/lib/systemd/system/neutron-server.service
