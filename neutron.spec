@@ -4,7 +4,7 @@
 #
 Name     : neutron
 Version  : 7.0.0
-Release  : 41
+Release  : 42
 URL      : http://tarballs.openstack.org/neutron/neutron-7.0.0.tar.gz
 Source0  : http://tarballs.openstack.org/neutron/neutron-7.0.0.tar.gz
 Source1  : neutron-dhcp-agent.service
@@ -127,6 +127,7 @@ Patch1: 0001-neutron-sudoers-entry.patch
 Patch2: 0002-move-rootwrap-location.patch
 Patch3: 0003-default-config.patch
 Patch4: 0004-change-dnsmasq-location.patch
+Patch5: 0001-Add-compatibility-with-iproute2-4.0.patch
 
 %description
 This package contains files that are required for XenAPI support for Neutron.
@@ -199,6 +200,7 @@ python components for the neutron package.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 python2 setup.py build -b py2
