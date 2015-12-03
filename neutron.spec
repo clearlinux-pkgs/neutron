@@ -4,7 +4,7 @@
 #
 Name     : neutron
 Version  : 7.0.0
-Release  : 42
+Release  : 43
 URL      : http://tarballs.openstack.org/neutron/neutron-7.0.0.tar.gz
 Source0  : http://tarballs.openstack.org/neutron/neutron-7.0.0.tar.gz
 Source1  : neutron-dhcp-agent.service
@@ -225,6 +225,7 @@ install -m 0644 %{SOURCE7} %{buildroot}/usr/lib/tmpfiles.d/neutron.conf
 ## make_install_append content
 rm -rf %{buildroot}/usr/etc
 install -d -m 755 %{buildroot}/usr/share/defaults/neutron
+install -d -m 755 %{buildroot}/usr/share/defaults/neutron/conf.d
 install -p -D -m 644 etc/*.conf %{buildroot}/usr/share/defaults/neutron/
 install -p -D -m 644 etc/*.ini %{buildroot}/usr/share/defaults/neutron/
 install -p -D -m 644 etc/*.json %{buildroot}/usr/share/defaults/neutron/

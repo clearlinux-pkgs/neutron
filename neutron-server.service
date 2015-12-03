@@ -5,7 +5,11 @@ After=syslog.target network.target
 [Service]
 Type=notify
 User=neutron
-ExecStart=/usr/bin/neutron-server --config-file /usr/share/defaults/neutron/neutron.conf --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugin.ini
+ExecStart=/usr/bin/neutron-server \
+  --config-file  /usr/share/defaults/neutron/neutron.conf \
+  --config-dir   /usr/share/defaults/neutron/conf.d \
+  --config-file  /etc/neutron/neutron.conf \
+  --config-file  /etc/neutron/plugin.ini
 PrivateTmp=true
 NotifyAccess=all
 KillMode=process
