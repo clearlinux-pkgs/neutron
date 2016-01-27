@@ -2,4 +2,3 @@
 0002-move-rootwrap-location.patch
 0003-default-config.patch
 0004-change-dnsmasq-location.patch
-0001-Add-compatibility-with-iproute2-4.0.patch
