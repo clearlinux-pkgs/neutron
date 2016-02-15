@@ -4,7 +4,7 @@
 #
 Name     : neutron
 Version  : 7.0.3
-Release  : 47
+Release  : 48
 URL      : http://tarballs.openstack.org/neutron/neutron-7.0.3.tar.gz
 Source0  : http://tarballs.openstack.org/neutron/neutron-7.0.3.tar.gz
 Source1  : neutron-dhcp-agent.service
