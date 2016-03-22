@@ -5,3 +5,4 @@ z /etc/neutron/plugins/* 0750 root neutron - -
 z /etc/neutron/plugins/*/* 0640 root neutron - -
 d /var/log/neutron - neutron neutron - -
 d /var/lib/neutron - neutron neutron - -
+d /run/lock/neutron - neutron neutron - -

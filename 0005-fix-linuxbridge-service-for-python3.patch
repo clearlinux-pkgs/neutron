@@ -1,0 +1,25 @@
+From 3e0aef5b1bceec906118616d24fe943c5c671e2b Mon Sep 17 00:00:00 2001
+From: "Simental Magana, Marcos" <marcos.simental.magana@intel.com>
+Date: Wed, 6 Apr 2016 10:41:07 -0500
+Subject: [PATCH] fix linuxbridge service for python3
+
+---
+ neutron/agent/linux/utils.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/neutron/agent/linux/utils.py b/neutron/agent/linux/utils.py
+index 3166f11..6eea644 100644
+--- a/neutron/agent/linux/utils.py
++++ b/neutron/agent/linux/utils.py
+@@ -159,7 +159,7 @@ def get_interface_mac(interface):
+         dev = dev.encode('utf-8')
+     info = fcntl.ioctl(s.fileno(), 0x8927, struct.pack('256s', dev))
+     return ''.join(['%02x:' % ord(char)
+-                    for char in info[MAC_START:MAC_END]])[:-1]
++                    for char in str(info[MAC_START:MAC_END])])[:-1]
+ 
+ 
+ @debtcollector.removals.remove(message="Redundant in Mitaka release.")
+-- 
+2.4.11
+
