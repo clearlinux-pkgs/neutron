@@ -4,7 +4,7 @@
 #
 Name     : neutron
 Version  : 8.0.0
-Release  : 63
+Release  : 64
 URL      : http://tarballs.openstack.org/neutron/neutron-8.0.0.tar.gz
 Source0  : http://tarballs.openstack.org/neutron/neutron-8.0.0.tar.gz
 Source1  : neutron-dhcp-agent.service
@@ -78,13 +78,16 @@ python components for the neutron package.
 %patch5 -p1
 
 %build
+export LANG=C
+export SOURCE_DATE_EPOCH=1484554652
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
 %install
+export SOURCE_DATE_EPOCH=1484554652
 rm -rf %{buildroot}
-python2 -tt setup.py build -b py2 install --root=%{buildroot}
-python3 -tt setup.py build -b py3 install --root=%{buildroot}
+python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
+python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/neutron-dhcp-agent.service
 install -m 0644 %{SOURCE2} %{buildroot}/usr/lib/systemd/system/neutron-l3-agent.service
