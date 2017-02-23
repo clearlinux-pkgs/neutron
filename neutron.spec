@@ -4,7 +4,7 @@
 #
 Name     : neutron
 Version  : 8.0.0
-Release  : 64
+Release  : 65
 URL      : http://tarballs.openstack.org/neutron/neutron-8.0.0.tar.gz
 Source0  : http://tarballs.openstack.org/neutron/neutron-8.0.0.tar.gz
 Source1  : neutron-dhcp-agent.service
@@ -21,6 +21,47 @@ Requires: neutron-bin
 Requires: neutron-python
 Requires: neutron-config
 Requires: neutron-data
+Requires: Jinja2
+Requires: Paste
+Requires: PasteDeploy
+Requires: Routes
+Requires: SQLAlchemy
+Requires: WebOb
+Requires: alembic
+Requires: debtcollector
+Requires: eventlet
+Requires: greenlet
+Requires: httplib2
+Requires: keystoneauth1
+Requires: keystonemiddleware
+Requires: netaddr
+Requires: netifaces
+Requires: oslo.concurrency
+Requires: oslo.config
+Requires: oslo.context
+Requires: oslo.db
+Requires: oslo.i18n
+Requires: oslo.log
+Requires: oslo.messaging
+Requires: oslo.middleware
+Requires: oslo.policy
+Requires: oslo.reports
+Requires: oslo.rootwrap
+Requires: oslo.serialization
+Requires: oslo.service
+Requires: oslo.utils
+Requires: oslo.versionedobjects
+Requires: pbr
+Requires: pecan
+Requires: psutil
+Requires: psycopg2
+Requires: python-designateclient
+Requires: python-neutronclient
+Requires: python-novaclient
+Requires: requests
+Requires: retrying
+Requires: six
+Requires: stevedore
 BuildRequires : pbr
 BuildRequires : pip
 BuildRequires : python-dev
@@ -79,12 +120,12 @@ python components for the neutron package.
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1484554652
+export SOURCE_DATE_EPOCH=1487881142
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
 %install
-export SOURCE_DATE_EPOCH=1484554652
+export SOURCE_DATE_EPOCH=1487881142
 rm -rf %{buildroot}
 python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
 python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
