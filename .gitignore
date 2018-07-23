@@ -1,1 +1,12 @@
-**./openstack-quantum-xen-plugins.spec
+.*~
+*~
+*.swp
+.repo-index
+*.log
+build.log.round*
+*.tar.*
+*.tgz
+!*.tar.*.*
+*.zip
+commitmsg
+results/
