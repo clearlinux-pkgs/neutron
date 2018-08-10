@@ -6,7 +6,7 @@
 #
 Name     : neutron
 Version  : 12.0.3
-Release  : 69
+Release  : 70
 URL      : http://tarballs.openstack.org/neutron/neutron-12.0.3.tar.gz
 Source0  : http://tarballs.openstack.org/neutron/neutron-12.0.3.tar.gz
 Source1  : neutron-dhcp-agent.service
@@ -39,6 +39,7 @@ Requires: keystoneauth1
 Requires: keystonemiddleware
 Requires: netaddr
 Requires: netifaces
+Requires: neutron-lib
 Requires: os-xenapi
 Requires: oslo.cache
 Requires: oslo.concurrency
@@ -59,6 +60,7 @@ Requires: oslo.utils
 Requires: oslo.versionedobjects
 Requires: osprofiler
 Requires: ovs
+Requires: ovsdbapp
 Requires: pbr
 Requires: pecan
 Requires: psutil
@@ -73,6 +75,8 @@ Requires: stevedore
 Requires: tenacity
 Requires: weakrefmethod
 BuildRequires : buildreq-distutils3
+BuildRequires : neutron-lib
+BuildRequires : ovsdbapp
 BuildRequires : pbr
 
 %description
@@ -131,7 +135,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1533908497
+export SOURCE_DATE_EPOCH=1533915663
 python3 setup.py build -b py3
 
 %install
