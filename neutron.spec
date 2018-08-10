@@ -5,10 +5,10 @@
 # Source0 file verified with key 0xC36CDCB4DF00C68C (infra-root@openstack.org)
 #
 Name     : neutron
-Version  : 10.0.7
-Release  : 67
-URL      : http://tarballs.openstack.org/neutron/neutron-10.0.7.tar.gz
-Source0  : http://tarballs.openstack.org/neutron/neutron-10.0.7.tar.gz
+Version  : 12.0.3
+Release  : 68
+URL      : http://tarballs.openstack.org/neutron/neutron-12.0.3.tar.gz
+Source0  : http://tarballs.openstack.org/neutron/neutron-12.0.3.tar.gz
 Source1  : neutron-dhcp-agent.service
 Source2  : neutron-l3-agent.service
 Source3  : neutron-linuxbridge-agent.service
@@ -16,7 +16,7 @@ Source4  : neutron-metadata-agent.service
 Source5  : neutron-openvswitch-agent.service
 Source6  : neutron-server.service
 Source7  : neutron.tmpfiles
-Source99 : http://tarballs.openstack.org/neutron/neutron-10.0.7.tar.gz.asc
+Source99 : http://tarballs.openstack.org/neutron/neutron-12.0.3.tar.gz.asc
 Summary  : OpenStack Networking
 Group    : Development/Tools
 License  : Apache-2.0
@@ -39,6 +39,7 @@ Requires: keystoneauth1
 Requires: keystonemiddleware
 Requires: netaddr
 Requires: netifaces
+Requires: os-xenapi
 Requires: oslo.cache
 Requires: oslo.concurrency
 Requires: oslo.config
@@ -49,6 +50,7 @@ Requires: oslo.log
 Requires: oslo.messaging
 Requires: oslo.middleware
 Requires: oslo.policy
+Requires: oslo.privsep
 Requires: oslo.reports
 Requires: oslo.rootwrap
 Requires: oslo.serialization
@@ -60,18 +62,15 @@ Requires: pbr
 Requires: pecan
 Requires: psutil
 Requires: psycopg2
+Requires: pyroute2
 Requires: python-designateclient
 Requires: python-neutronclient
 Requires: python-novaclient
-Requires: requests
 Requires: six
 Requires: stevedore
 Requires: tenacity
 BuildRequires : buildreq-distutils3
 BuildRequires : pbr
-BuildRequires : pip
-BuildRequires : python3-dev
-BuildRequires : setuptools
 
 %description
 Team and repository tags
@@ -122,14 +121,14 @@ python3 components for the neutron package.
 
 
 %prep
-%setup -q -n neutron-10.0.7
+%setup -q -n neutron-12.0.3
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1532354725
+export SOURCE_DATE_EPOCH=1533874080
 python3 setup.py build -b py3
 
 %install
@@ -155,6 +154,7 @@ install -m 0644 %{SOURCE7} %{buildroot}/usr/lib/tmpfiles.d/neutron.conf
 
 %files bin
 %defattr(-,root,root,-)
+/usr/bin/neutron-api
 /usr/bin/neutron-db-manage
 /usr/bin/neutron-debug
 /usr/bin/neutron-dhcp-agent
@@ -167,7 +167,6 @@ install -m 0644 %{SOURCE7} %{buildroot}/usr/lib/tmpfiles.d/neutron.conf
 /usr/bin/neutron-metadata-agent
 /usr/bin/neutron-metering-agent
 /usr/bin/neutron-netns-cleanup
-/usr/bin/neutron-ns-metadata-proxy
 /usr/bin/neutron-openvswitch-agent
 /usr/bin/neutron-ovs-cleanup
 /usr/bin/neutron-pd-notify
