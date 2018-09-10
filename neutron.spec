@@ -5,10 +5,10 @@
 # Source0 file verified with key 0xC36CDCB4DF00C68C (infra-root@openstack.org)
 #
 Name     : neutron
-Version  : 12.0.3
-Release  : 70
-URL      : http://tarballs.openstack.org/neutron/neutron-12.0.3.tar.gz
-Source0  : http://tarballs.openstack.org/neutron/neutron-12.0.3.tar.gz
+Version  : 13.0.0
+Release  : 71
+URL      : http://tarballs.openstack.org/neutron/neutron-13.0.0.tar.gz
+Source0  : http://tarballs.openstack.org/neutron/neutron-13.0.0.tar.gz
 Source1  : neutron-dhcp-agent.service
 Source2  : neutron-l3-agent.service
 Source3  : neutron-linuxbridge-agent.service
@@ -16,7 +16,7 @@ Source4  : neutron-metadata-agent.service
 Source5  : neutron-openvswitch-agent.service
 Source6  : neutron-server.service
 Source7  : neutron.tmpfiles
-Source99 : http://tarballs.openstack.org/neutron/neutron-12.0.3.tar.gz.asc
+Source99 : http://tarballs.openstack.org/neutron/neutron-13.0.0.tar.gz.asc
 Summary  : OpenStack Networking
 Group    : Development/Tools
 License  : Apache-2.0
@@ -30,6 +30,7 @@ Requires: Paste
 Requires: PasteDeploy
 Requires: Routes
 Requires: SQLAlchemy
+Requires: Sphinx
 Requires: WebOb
 Requires: alembic
 Requires: debtcollector
@@ -40,6 +41,7 @@ Requires: keystonemiddleware
 Requires: netaddr
 Requires: netifaces
 Requires: neutron-lib
+Requires: openstackdocstheme
 Requires: os-xenapi
 Requires: oslo.cache
 Requires: oslo.concurrency
@@ -58,6 +60,7 @@ Requires: oslo.serialization
 Requires: oslo.service
 Requires: oslo.utils
 Requires: oslo.versionedobjects
+Requires: oslotest
 Requires: osprofiler
 Requires: ovs
 Requires: ovsdbapp
@@ -69,6 +72,7 @@ Requires: pyroute2
 Requires: python-designateclient
 Requires: python-neutronclient
 Requires: python-novaclient
+Requires: reno
 Requires: ryu
 Requires: six
 Requires: stevedore
@@ -128,14 +132,14 @@ python3 components for the neutron package.
 
 
 %prep
-%setup -q -n neutron-12.0.3
+%setup -q -n neutron-13.0.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1533915663
+export SOURCE_DATE_EPOCH=1536548718
 python3 setup.py build -b py3
 
 %install
@@ -201,6 +205,7 @@ install -m 0644 %{SOURCE7} %{buildroot}/usr/lib/tmpfiles.d/neutron.conf
 %config /usr/etc/neutron/rootwrap.d/linuxbridge-plugin.filters
 %config /usr/etc/neutron/rootwrap.d/netns-cleanup.filters
 %config /usr/etc/neutron/rootwrap.d/openvswitch-plugin.filters
+%config /usr/etc/neutron/rootwrap.d/privsep.filters
 /usr/lib/systemd/system/neutron-dhcp-agent.service
 /usr/lib/systemd/system/neutron-l3-agent.service
 /usr/lib/systemd/system/neutron-linuxbridge-agent.service
