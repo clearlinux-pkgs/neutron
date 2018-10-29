@@ -1,6 +1,19 @@
 CHANGES
 =======
 
+13.0.1
+------
+
+* ovs fw: apply the NORMAL action on egress traffic in a single table
+* doc: Additional fixes to the SR-IOV doc
+* Remove deprecated RamFilter from admin guide
+* Fix incorrect log resources querying
+* DVR: Add IPv6 csnat port address correctly
+* import zuul job settings from project-config
+* Reduce qos rpc times on the ovs-agent side
+* Remove fdb entries for ha router interfaces when going DOWN
+* Fix neutron-openvswitch-agent Windows support
+
 13.0.0
 ------
 
