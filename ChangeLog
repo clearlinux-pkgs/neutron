@@ -1,16 +1,48 @@
 CHANGES
 =======
 
+13.0.2
+------
+
+* Add capabilities for privsep
+* Add permanent ARP entries for DVR fip/qrouter veth pair
+* Use neutron-tempest-plugin-jobs-rocky in rocky branch
+* Increase tempest jobs timeout
+* [Functional] Increase test\_timeout for db migration tests
+* Make port binding attempt after agent is revived
+* Fix dvr ha router gateway goes wrong host
+* Allow update request with current segment\_id
+* DVR-HA: Configure extra routes on router namespace in dvr\_snat node
+* [Functional] Increase test\_timeout for db migration tests
+* Fullstack test for minimum bw rule ingress create
+* Allow Ipv6 addresses for nova\_metadata\_host
+* Install centralized floating IP nat rules to all ha nodes
+* Fix corner case in failure assigning MAC to SR-IOV NIC
+* Revert "DVR: Inter Tenant Traffic between networks not possible with shared net"
+* Revert "DVR: Add error handling for get\_network\_info\_for\_id rpc call"
+* Do not install centralized FIP if HA port is down
+* Fetch specific columns rather than full ORM entities
+* doc: add known limitation about attaching SR-IOV ports
+* Don't uninstall flow tables in setup\_dvr\_flows\_on\_integ\_br
+* Parse dhcp leases file in a more robust way
+* Fix IPv6 prefix delegation issue on agent restart
+* [Fullstack] Mark securitygroups tests as unstable
+* ovsdb monitor: do not die on ovsdb-client stderr output
+* Fix pylint warning with eventlet > 0.22.0
+
 13.0.1
 ------
 
+* l2 pop: check for more than 1 first active port on a node
 * ovs fw: apply the NORMAL action on egress traffic in a single table
+* metadata: use requests for comms with nova api
 * doc: Additional fixes to the SR-IOV doc
 * Remove deprecated RamFilter from admin guide
 * Fix incorrect log resources querying
 * DVR: Add IPv6 csnat port address correctly
 * import zuul job settings from project-config
 * Reduce qos rpc times on the ovs-agent side
+* Use system protocol assigments for iptables protocol map
 * Remove fdb entries for ha router interfaces when going DOWN
 * Fix neutron-openvswitch-agent Windows support
 
