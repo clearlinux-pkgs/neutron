@@ -5,10 +5,10 @@
 # Source0 file verified with key 0x1A541148054E9E38 (infra-root@openstack.org)
 #
 Name     : neutron
-Version  : 13.0.2
-Release  : 75
-URL      : http://tarballs.openstack.org/neutron/neutron-13.0.2.tar.gz
-Source0  : http://tarballs.openstack.org/neutron/neutron-13.0.2.tar.gz
+Version  : 14.0.0.0b1
+Release  : 76
+URL      : http://tarballs.openstack.org/neutron/neutron-14.0.0.0b1.tar.gz
+Source0  : http://tarballs.openstack.org/neutron/neutron-14.0.0.0b1.tar.gz
 Source1  : neutron-dhcp-agent.service
 Source2  : neutron-l3-agent.service
 Source3  : neutron-linuxbridge-agent.service
@@ -16,7 +16,7 @@ Source4  : neutron-metadata-agent.service
 Source5  : neutron-openvswitch-agent.service
 Source6  : neutron-server.service
 Source7  : neutron.tmpfiles
-Source99 : http://tarballs.openstack.org/neutron/neutron-13.0.2.tar.gz.asc
+Source99 : http://tarballs.openstack.org/neutron/neutron-14.0.0.0b1.tar.gz.asc
 Summary  : OpenStack Networking
 Group    : Development/Tools
 License  : Apache-2.0
@@ -59,6 +59,7 @@ Requires: oslo.reports
 Requires: oslo.rootwrap
 Requires: oslo.serialization
 Requires: oslo.service
+Requires: oslo.upgradecheck
 Requires: oslo.utils
 Requires: oslo.versionedobjects
 Requires: oslotest
@@ -75,7 +76,6 @@ Requires: python-neutronclient
 Requires: python-novaclient
 Requires: reno
 Requires: requests
-Requires: ryu
 Requires: six
 Requires: stevedore
 Requires: tenacity
@@ -86,8 +86,17 @@ BuildRequires : ovsdbapp
 BuildRequires : pbr
 
 %description
-Team and repository tags
-        ========================
+The Modular Layer 2 (ML2) plugin is a framework allowing OpenStack
+Networking to simultaneously utilize the variety of layer 2 networking
+technologies found in complex real-world data centers. It supports the
+Open vSwitch, Linux bridge, and Hyper-V L2 agents, replacing and
+deprecating the monolithic plugins previously associated with those
+agents, and can also support hardware devices and SDN controllers. The
+ML2 framework is intended to greatly simplify adding support for new
+L2 networking technologies, requiring much less initial and ongoing
+effort than would be required for an additional monolithic core
+plugin. It is also intended to foster innovation through its
+organization as optional driver modules.
 
 %package bin
 Summary: bin components for the neutron package.
@@ -143,14 +152,15 @@ services components for the neutron package.
 
 
 %prep
-%setup -q -n neutron-13.0.2
+%setup -q -n neutron-14.0.0.0b1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1541512219
+export SOURCE_DATE_EPOCH=1546485211
+export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
 %install
@@ -199,12 +209,12 @@ install -m 0644 %{SOURCE7} %{buildroot}/usr/lib/tmpfiles.d/neutron.conf
 /usr/bin/neutron-sanity-check
 /usr/bin/neutron-server
 /usr/bin/neutron-sriov-nic-agent
+/usr/bin/neutron-status
 /usr/bin/neutron-usage-audit
 
 %files config
 %defattr(-,root,root,-)
 %config /usr/etc/neutron/api-paste.ini
-%config /usr/etc/neutron/policy.json
 %config /usr/etc/neutron/rootwrap.conf
 %config /usr/etc/neutron/rootwrap.d/debug.filters
 %config /usr/etc/neutron/rootwrap.d/dhcp.filters
