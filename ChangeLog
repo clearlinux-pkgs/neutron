@@ -1,307 +1,77 @@
 CHANGES
 =======
 
-14.0.0.0b1
-----------
+13.0.2
+------
 
-* Use publish for AGENT AFTER\_CREATE/AFTER\_UPDATE
-* Define popular policy rules by constants (part 2)
-* Add ipxe6 dnsmasq tag to enable ipv6 dhcp client matching
-* Define popular policy rules by constants
-* Log alembic migration script's output with oslo\_log
-* Upgrade check command - add support for 3rd party checks
-* tox: Hide deprecation warnings from distgit
-* Disable displaying warnings in functional tests
-* use payloads for ROUTER\_INTERFACE BEFORE\_DELETE events
-* rally-jobs: Set floating network as a parameter
-* Implement IpAddrCommand.get\_devices\_with\_ip using pyroute2
-* Add logging for functional tests
-* Fix mysql functional migration tests
-* Revert "Make neutron-tempest-iptable\_hybrid job non-voting"
-* Remove unused get\_<plural> rules
-* Drop 3rd-party plugin specific policies
-* Implement IpRuleCommand.delete() using pyroute2
-* Add debug information of the dhclient process
-* Convert policy.json into policy-in-code
-* shim \_resource\_extend for neutron-lib
-* Prevent some L3 ports change IP address
-* Remove unnecessary 'set -x' at EOL in genconfig script
-* Add irrelevant-files for grenade-py3 jobs
-* Mark mysql related functional tests as unstable
-* Replace ryu with os\_ken
-* get\_standard\_device\_mappings for mechdriver
-* [DVR] Allow multiple subnets per external network
-* Table name in "add\_ip\_rule" can be a string
-* Do state report after setting start\_flag on OVS restart
-* Do not delete trunk bridges if service port attached
-* Update mailinglist from dev to discuss
-* Make neutron-tempest-iptable\_hybrid job non-voting
-* Support fetching specific db column in OVO
-* Switch neutron-rally-task job to python 3
-* tox: Reuse envdirs
-* Check port VNIC type when associating a floating IP
-* Fix dnsmasq option6 tagging logic
-* Enable delete bound trunk for linux bridge agent
-* Remove sqlalchemy osprofiler
-* Add debug information in BridgeCreateEvent
-* bump neutron-lib to 1.21.0
-* Implement IpRuleCommand.add() using pyroute2
-* Add tempest-slow to gate queue
-* Fix the bug about DHCP port whose network has multiple subnets
-* Check if agent can reach neutron server
-* [Doc] L3 router gateway IP rate limit
-* Add native OVSDB implementation for bridge monitor
-* Reinitialize ovs firewall after ovs-vswitchd restart
-* Change "cmd" folder in fullstack tests
-* [L3][QoS] Agent side router gateway IP rate limit
-* [L3][QoS] Neutron server side router gateway IP QoS
-* Send global\_request\_id for tracing calls from neutron to nova
-* Add propagate\_uplink\_status to port
-* rally-jobs: Add FloatingIP workloads
-* Add bulk port creation of DB objects
-* Force all fdb entries update after ovs-vswitchd restart
-* Secure dnsmasq process against external abuse
-* Sync up model\_query module to neutron-lib
-* Only store segmenthostmapping when enable segment plugin
-* [Fullstack] Configure policy.json file only if it is set
-* Convert instance method to staticmethod in linuxbridge\_neutron\_agent
-* Implement IpRuleCommand.list\_rules() using pyroute2
-* Store journal log from host in fullstack's job results
-* Get centralized FIP only on router's snat host
-* Cleanup old jobs from experimental queue
-* Trivial: Fix ovs cleanup script on Windows
-* All functional tests logs results now
-* DVR Floating IP create don't raise exception if agent not found
-* Add get\_availability\_zone rule to policy.json
-* tox: Hide deprecation warnings
-* remove unused methods from CommonDbMixin
-* segments use neutron\_lib placement client
-* filter "updated\_at" and "revision\_number" in \_gateway\_ports\_equal
-* Add bulk IP address assignment to ipam driver
-* Duplicate words were deleted in openvswitch\_agent.rst
-* Add missing ws seperator between words
-* Add test cases for port number 0 for port\_forwarding
-* use payloads for SEGMENT BEFORE\_DELETE callbacks
-* Add kill\_timeout to AsyncProcess
-* Enable 'all' IPv6 forwarding knob correctly
-* Change to use iproute2 instead of brctl
-* Add networking-ovn job to Neutron's check pipeline
-* Implement ip\_lib get\_devices using pyroute2
-* raise priority of dead vlan drop
-* DVR: Centralized FloatingIPs are not cleared after migration
-* Make neutron-fullstack job run py3
-* Notify router\_update after directly gateway IP change
-* Removed duplicated word "and"
-* Import neutron.db.api module in common.utils
-* Add port\_forwarding to devstack plugin
-* Prevent create port forwarding to port which has binding fip
-* Refactor \_cache\_related\_dvr\_routers\_info\_before\_interface\_removal()
-* Add python 3.6 unit test job
-* Incorporate capability for multiple mac generation
-* Use RBACBaseObject OVO in neutron/db/rbac\_db\_mixin.py
-* ml2/rpc: provide a small helper to avoid redundancy
-* Switch to new engine facade in neutron/db/agents\_db.py
-* DevStack: OVS: Only install kernel-\* packages when needed
-* Bump neutron-lib to version 1.20.0
-* Add missing step for ovs deploy guides
-* Add protocol to port\_forwarding uniq constraint
-* Wait to ipv6 forwarding be really changed by L3 agent
-* use MAX\_RETRIES from neutron-lib
-* Update lower-constraints to meet neutron-lib
-* Use NetworkRBAC OVO in tests/unit/db/test\_db\_base\_plugin\_v2.py
-* Set router\_id if floating IP has port\_forwardings
-* supported\_vnic\_type configurable for sriov
-* Increase timout of gate jobs
-* Add test cases to verify port number 0 for port\_forwaring
-* Scan for MAC through all devices in macvtap agent
-* Fix connection between 2 dvr routers
-* Update docs for disabling DNS server announcement
-* iptables-restore wait period cannot be zero
-* Block port update from unbound DHCP agent
-* Increase tempest-full jobs timeout
-* Verify port\_forwarding subnet and IP address both
-* Fix incorrectly passing ext\_ips as gateway ips
-* Fix incorrect usage of '# flake8: noqa'
 * Add capabilities for privsep
-* sriov-agent: fullstack test resource info report
-* Event driven periodic resync task for DHCP agents
-* ovs/sriov mech drivers: resource\_provider\_uuid5\_namespace
-* notification: Add 'status' to agent after\_create/update
-* Add neutron-status upgrade check command framework
-* remove unused db api functions
-* OVSNeutronAgent.rpc\_loop is always called with "polling\_manager"
-* use context manager from neutron-lib
-* Revert "Add openstack/placement as a required project for neutron-grenade\*"
+* Add permanent ARP entries for DVR fip/qrouter veth pair
+* Use neutron-tempest-plugin-jobs-rocky in rocky branch
 * Increase tempest jobs timeout
-* Use NetworkRBAC OVO in neutron/db/external\_net\_db.py
-* Use NetworkRBAC OVO in neutron/db/db\_base\_plugin\_v2.py
 * [Functional] Increase test\_timeout for db migration tests
 * Make port binding attempt after agent is revived
-* use payloads for SUBNET BEFORE\_DELETE events
-* neutron.conf needs lock\_path set for router to operate This change is adding required configuration in neutron.conf to set the lock\_path parameter, which was missing in compute-install-ubuntu.rst
-* Fix flake8 N534 untranslated exception message
 * Fix dvr ha router gateway goes wrong host
-* Add Network RBAC functional tests for External\_net\_db\_mixin
-* Add a request validator for SNAT logging
-* Introduce Port resource request extension
-* Enable ingress direction for min\_bw rule
-* Fix enable\_distributed\_routing option section in docs
-* Introduce L3 agent extension for SNAT logging
-* use payloads for NETWORK BEFORE\_DELETE events
-* supported\_vnic\_type configurable for ovs
-* Use l3plugin property in neutron/db/l3\_dvr\_db.py module
 * Allow update request with current segment\_id
-* [Functional] Increase test\_timeout for db migration tests
-* use retry\_if\_session\_inactive from neutron-lib
-* Increment versioning with pbr instruction
 * DVR-HA: Configure extra routes on router namespace in dvr\_snat node
-* Introduce functional testing for Network RBAC policies
-* Use tempest-pg-full
-* use ovo for L3HARouterAgentPortBinding in l3\_hamode
-* Remove deprecated vsctl ovsdb\_interface api
-* Delete tempest config module
-* Add permanent ARP entries for DVR fip/qrouter veth pair
-* ovs-agent: fullstack test resource info report
-* sriov-agent: Report resource info in heartbeat
-* ovs-agent: Report resource info in heartbeat
+* [Functional] Increase test\_timeout for db migration tests
+* Fullstack test for minimum bw rule ingress create
 * Allow Ipv6 addresses for nova\_metadata\_host
-* Modify the QoS doc in Neutron
-* Replace openSUSE experimental check with newer version
-* Make grenade-multinode-dvr job voting again
-* Add both directions for minimum bw rule in doc
-* Exclude fallback tunnel devices from netns cleanup
-* netns\_cleanup: Remove unused parameter from unplug\_devices()
-* Ingress direction for min bandwidth rule
-* Fix ADMIN output examples
-* Fix flake8 H404 errors
 * Install centralized floating IP nat rules to all ha nodes
-* Trigger router update only when gateway port IP changed
-* fix tox python3 overrides
-* Upgrade pylint to a version that works with python3
-* Introduce floating IP pool resource
-* remove trailing comma for linter
-* Update tests neutron.conf to use transport\_url
-* Add argument to get ports by SG to allow excluding owners
-* Optimize OVS DVR CSNAT port code a little
 * Fix corner case in failure assigning MAC to SR-IOV NIC
-* Fix best\_match() deprecation warning
-* Update code review policies for sub-projects
-* bump neutron-lib version to 1.19.0
-* Add openstack/placement as a required project for neutron-grenade\*
-* Create temp file in setUp() to avoid warning
-* Always set ovs bridge name in vif:binding-details
-* use payloads for AGENT BEFORE\_DELETE callbacks
-* Disable some pylint checks
-* Remove a bare raise noticed by the linter
-* tell pylint to ignore python2 version of gettext
-* Remove population of is\_filter keyword
-* Do not fail deleting namespace if it does not exist
-* Make binding statement singular
-* Fix doc output examples
-* Do not install centralized FIP if HA port is down
-* Refactor l3hamode for ha migration
-* Fix pep8 F402 import shadowing
-* Add PortForwarding to neutron.objects entrypoint
-* Use extension 'empty-string-filtering' from neutron-lib
-* Bump pecan version to 1.3.2
-* Remove async\_process, moved to "common"
-* use is\_retriable from neutron-lib
-* Make neutron-fullstack-python36 job voting
-* doc: OpenVSwitch firewall internal design, improvements (+ newline fix)
-* Use templates for cover and lower-constraints
-* Fix broken link to Open vSwitch installation instructions
-* Use mktemp instead of tempfile in gate\_hook.sh
-* Use Tempest slow job to run all slow tests
-* use TenantIdProjectIdFilterConflict from neutron-lib
-* Fix IPv6 prefix delegation issue on agent restart
-* remove \_setUpExtension
-* Integration of Port Binding Level OVO
-* Don't uninstall flow tables in setup\_dvr\_flows\_on\_integ\_br
-* Use tempest-multinode-full job from Tempest
-* Update FIP QoS Docs
-* [Docs] Update note about default burst value in QoS bw limit
-* Revert "Use nested virt in scenario jobs"
-* Fix pylint warning with eventlet > 0.22.0
-* Follow-up: add fullstack test for logging
-* doc: Small clearances for fullstack testing
-* Delete ovs port if namespace is corrupted
-* Add fullstack test for logging
-* ovs fw: apply the NORMAL action on egress traffic in a single table
-* doc: Address nits from I45fdc8e40121698bf144d0e0a65537edda2c805d
-* Fix devstack/lib/ovs to run with Fedora 28
-* doc: Additional fixes to the SR-IOV doc
-* l2 pop: check for more than 1 first active port on a node
-* Consolidate irrelevant files added for py3 project
-* add python 3.6 unit test job
-* use security\_groups\_port\_filtering from neutron-lib
-* Update abandon\_old\_reviews script to check Zuul votes
-* switch documentation job to new PTI
-* import zuul job settings from project-config
-* Remove deprecated RamFilter from admin guide
-* ovsdb monitor: do not die on ovsdb-client stderr output
-* Use Tag OVO in neutron/services/tag/tag\_plugin.py
-* [Fullstack] Mark securitygroups tests as unstable
-* fix spell error
-* Fix incorrect log resources querying
-* Skip L3 ha functional IPv6 test if IPv6 is disabled
-* Disallow networks with first ip 0.0.0.0 with dhcp enabled
-* Use constant IP\_VERSION\_4/6 in functional tests
-* Use constant IP\_VERSION\_4/6 in unit tests
-* Modify abandon\_old\_reviews script
-* DVR: Add IPv6 csnat port address correctly
-* Fix the RFC and private internet network address
-* Parse dhcp leases file in a more robust way
-* Remove Future work from OVS-fw docs
 * Revert "DVR: Inter Tenant Traffic between networks not possible with shared net"
 * Revert "DVR: Add error handling for get\_network\_info\_for\_id rpc call"
-* shim neutron rpc with neutron-lib
+* Do not install centralized FIP if HA port is down
 * Fetch specific columns rather than full ORM entities
-* metadata: use requests for comms with nova api
 * doc: add known limitation about attaching SR-IOV ports
-* Use nested virt in scenario jobs
-* [Fullstack] Add debug\_iptables=True in security groups tests
-* Enable nonvoting python 3.6 unit test job template
-* Update list of skipped bandit plugins
-* Doc: update the qos devref about SR-IOV support
+* Don't uninstall flow tables in setup\_dvr\_flows\_on\_integ\_br
+* Parse dhcp leases file in a more robust way
+* Fix IPv6 prefix delegation issue on agent restart
+* [Fullstack] Mark securitygroups tests as unstable
+* ovsdb monitor: do not die on ovsdb-client stderr output
+* Fix pylint warning with eventlet > 0.22.0
+
+13.0.1
+------
+
+* l2 pop: check for more than 1 first active port on a node
+* ovs fw: apply the NORMAL action on egress traffic in a single table
+* metadata: use requests for comms with nova api
+* doc: Additional fixes to the SR-IOV doc
+* Remove deprecated RamFilter from admin guide
+* Fix incorrect log resources querying
+* DVR: Add IPv6 csnat port address correctly
+* import zuul job settings from project-config
 * Reduce qos rpc times on the ovs-agent side
-* Docs: Update API & Scenario Tests
-* add pycodestyle to test-requirements
-* Fix lost connection when create security group log
-* shim model query hooks to use neutron-lib
-* Revert "Update network revision only when it needs"
-* Consolidate irrelevant-files in zuul config
-* Windows OVS: minimize polling
-* Trivial: Move platform independent modules to common dir
-* Pass context in l3 flavor notifications
-* Update network revision only when it needs
-* Update metering driver to load interface driver
-* Update vpnaas-scenario docs
-* Create veth pair devices using pyroute2
+* Use system protocol assigments for iptables protocol map
 * Remove fdb entries for ha router interfaces when going DOWN
+* Fix neutron-openvswitch-agent Windows support
+
+13.0.0
+------
+
 * get\_subnet\_for\_dvr returns SNAT mac instead of distributed gateway in subnet\_info
-* Update reno for stable/rocky
+* Trivial: avoid KeyError while processing ports
+* Fix lost connection when create security group log
+* Update UPPER\_CONSTRAINTS\_FILE for stable/rocky
+* cap bandit in test-requirements.txt
+* Config privsep in the metering agent
+* Fix no packet log data when debug is set False in configuration
+* Fix no ACCEPT event can get for security group logging
 * Fix iptables metering driver entrypoint
+* Update metering driver to load interface driver
+* Enable filter validation for portforwarding plugin
+* Update .gitreview for stable/rocky
 
 13.0.0.0rc1
 -----------
 
-* Config privsep in the metering agent
 * Remove -u root as mysql is executed with root user
-* Use system protocol assigments for iptables protocol map
-* Fix import style
 * Correctly call is\_distributed\_router()
 * Add FIP port forwarding to Networking Guide
-* Open Stein DB branch
-* Enable filter validation for portforwarding plugin
 * Add release note for port forwardings
-* Remove \_migrate\_python\_ns\_metadata\_proxy\_if\_needed method
-* Add delete rule for auto\_allocated\_topology
 * Add note to RBAC chapter of Networking Guide
 * Move MAX\_CHAIN\_LEN constants to constants file
 * Don't run ironic-tempest job for irrelevant changes
-* Fix no packet log data when debug is set False in configuration
-* ipam\_backend\_mixin: Segments model to OVO
-* Fix no ACCEPT event can get for security group logging
 * Adding resources callback handler
 * Generic validate\_request method for logging
 * [Docs] Add note about Floating IP QoS
@@ -315,15 +85,12 @@ CHANGES
 * [server side] Expose port forwardings in FIP API
 * Bug deputy routines for dummies
 * Move neutron-fullstack-python35 out of experimental queue
-* Use OVO for tests/unit/plugins/ml2/drivers/l2pop/test\_db.py
 * Make dvr router port creation retriable
-* use autonested\_transaction from neutron-lib
 * [doc] Follow-up logging service for firewall\_group
 
 13.0.0.0b3
 ----------
 
-* Trivial: avoid KeyError while processing ports
 * [server side] Floating IP port forwarding plugin
 * use sqla functions from neutron-lib
 * Update the doc url about SUSE basic network configuration
@@ -331,7 +98,6 @@ CHANGES
 * Dont use dict.get() to know certain key is in dict
 * use callback payloads for ROUTER/ROUTER\_GATEWAY BEFORE\_DELETE events
 * [Fullstack] Use string for global\_physnet\_mtu config option
-* Rename router processing queue code to be more generic
 * [QoS] Clear rate limits when default null values are used
 * Fix ml2 hierarchical port binding driver check error
 * Add binding activation to the Linuxbridge agent
@@ -339,9 +105,7 @@ CHANGES
 * Implement filter validation
 * Add binding activation to OVS agent
 * Reduce IP address collision during port creating
-* Fix neutron-openvswitch-agent Windows support
 * Add missing policy actions to policy.json file
-* Add osprofiler to api-paste pipeline
 * Docs: Fix wrong stestr argument
 * Change neutron CLI to openstack CLI in neutron doc
 * Update \_check\_router\_retain\_needed()
@@ -364,7 +128,6 @@ CHANGES
 * Invalid link of doc reference
 * Fix UnixDomainHttpProtocol class to support all eventlet versions
 * Add release notes link in README
-* Add fullstack test to restart agent with active l3-ha router
 * use get reader/writer session from neutron-lib
 * Adopt Port OVO for tests/unit/db/test\_provisioning\_blocks.py
 * Use OVO in plugins/ml2/test\_plugin.py
@@ -431,7 +194,6 @@ CHANGES
 * Fix bug to doc:testing
 * Update tunnel\_types config option help msg
 * Revert "DVR: Fix allowed\_address\_pair IP, ARP table update by neutron agent"
-* Generate correct url in api pagination
 
 13.0.0.0b2
 ----------
@@ -511,7 +273,6 @@ CHANGES
 * shim \_setUpExtension in prep to changing args
 * Fix all pep8 E265 errors
 * Fix hw\_vif\_multiqueue\_enabled typo
-* Select service\_provider on the basis of service\_module
 * Add a debug env for unit tests
 * objects: automatically detect whether engine facade is used
 * Retry dhcp\_release on failures
