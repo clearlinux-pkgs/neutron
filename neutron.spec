@@ -6,7 +6,7 @@
 #
 Name     : neutron
 Version  : 13.0.2
-Release  : 77
+Release  : 78
 URL      : http://tarballs.openstack.org/neutron/neutron-13.0.2.tar.gz
 Source0  : http://tarballs.openstack.org/neutron/neutron-13.0.2.tar.gz
 Source1  : neutron-dhcp-agent.service
@@ -31,7 +31,6 @@ Requires: Paste
 Requires: PasteDeploy
 Requires: Routes
 Requires: SQLAlchemy
-Requires: Sphinx
 Requires: WebOb
 Requires: alembic
 Requires: debtcollector
@@ -42,7 +41,6 @@ Requires: keystonemiddleware
 Requires: netaddr
 Requires: netifaces
 Requires: neutron-lib
-Requires: openstackdocstheme
 Requires: os-xenapi
 Requires: oslo.cache
 Requires: oslo.concurrency
@@ -61,19 +59,16 @@ Requires: oslo.serialization
 Requires: oslo.service
 Requires: oslo.utils
 Requires: oslo.versionedobjects
-Requires: oslotest
 Requires: osprofiler
 Requires: ovs
 Requires: ovsdbapp
 Requires: pbr
 Requires: pecan
 Requires: psutil
-Requires: psycopg2
 Requires: pyroute2
 Requires: python-designateclient
 Requires: python-neutronclient
 Requires: python-novaclient
-Requires: reno
 Requires: requests
 Requires: ryu
 Requires: six
@@ -86,8 +81,17 @@ BuildRequires : ovsdbapp
 BuildRequires : pbr
 
 %description
-Team and repository tags
-        ========================
+The Modular Layer 2 (ML2) plugin is a framework allowing OpenStack
+Networking to simultaneously utilize the variety of layer 2 networking
+technologies found in complex real-world data centers. It supports the
+Open vSwitch, Linux bridge, and Hyper-V L2 agents, replacing and
+deprecating the monolithic plugins previously associated with those
+agents, and can also support hardware devices and SDN controllers. The
+ML2 framework is intended to greatly simplify adding support for new
+L2 networking technologies, requiring much less initial and ongoing
+effort than would be required for an additional monolithic core
+plugin. It is also intended to foster innovation through its
+organization as optional driver modules.
 
 %package bin
 Summary: bin components for the neutron package.
@@ -150,12 +154,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1547170157
+export SOURCE_DATE_EPOCH=1551034957
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
 %install
-export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/neutron
 cp LICENSE %{buildroot}/usr/share/package-licenses/neutron/LICENSE
