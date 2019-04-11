@@ -5,10 +5,10 @@
 # Source0 file verified with key 0x1A541148054E9E38 (infra-root@openstack.org)
 #
 Name     : neutron
-Version  : 13.0.2
-Release  : 78
-URL      : http://tarballs.openstack.org/neutron/neutron-13.0.2.tar.gz
-Source0  : http://tarballs.openstack.org/neutron/neutron-13.0.2.tar.gz
+Version  : 14.0.0
+Release  : 79
+URL      : http://tarballs.openstack.org/neutron/neutron-14.0.0.tar.gz
+Source0  : http://tarballs.openstack.org/neutron/neutron-14.0.0.tar.gz
 Source1  : neutron-dhcp-agent.service
 Source2  : neutron-l3-agent.service
 Source3  : neutron-linuxbridge-agent.service
@@ -16,7 +16,7 @@ Source4  : neutron-metadata-agent.service
 Source5  : neutron-openvswitch-agent.service
 Source6  : neutron-server.service
 Source7  : neutron.tmpfiles
-Source99 : http://tarballs.openstack.org/neutron/neutron-13.0.2.tar.gz.asc
+Source99 : http://tarballs.openstack.org/neutron/neutron-14.0.0.tar.gz.asc
 Summary  : OpenStack Networking
 Group    : Development/Tools
 License  : Apache-2.0
@@ -41,6 +41,7 @@ Requires: keystonemiddleware
 Requires: netaddr
 Requires: netifaces
 Requires: neutron-lib
+Requires: os-ken
 Requires: os-xenapi
 Requires: oslo.cache
 Requires: oslo.concurrency
@@ -57,6 +58,7 @@ Requires: oslo.reports
 Requires: oslo.rootwrap
 Requires: oslo.serialization
 Requires: oslo.service
+Requires: oslo.upgradecheck
 Requires: oslo.utils
 Requires: oslo.versionedobjects
 Requires: osprofiler
@@ -70,7 +72,6 @@ Requires: python-designateclient
 Requires: python-neutronclient
 Requires: python-novaclient
 Requires: requests
-Requires: ryu
 Requires: six
 Requires: stevedore
 Requires: tenacity
@@ -147,18 +148,19 @@ services components for the neutron package.
 
 
 %prep
-%setup -q -n neutron-13.0.2
+%setup -q -n neutron-14.0.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1551034957
+export SOURCE_DATE_EPOCH=1554949013
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
 %install
+export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/neutron
 cp LICENSE %{buildroot}/usr/share/package-licenses/neutron/LICENSE
@@ -204,12 +206,12 @@ install -m 0644 %{SOURCE7} %{buildroot}/usr/lib/tmpfiles.d/neutron.conf
 /usr/bin/neutron-sanity-check
 /usr/bin/neutron-server
 /usr/bin/neutron-sriov-nic-agent
+/usr/bin/neutron-status
 /usr/bin/neutron-usage-audit
 
 %files config
 %defattr(-,root,root,-)
 %config /usr/etc/neutron/api-paste.ini
-%config /usr/etc/neutron/policy.json
 %config /usr/etc/neutron/rootwrap.conf
 %config /usr/etc/neutron/rootwrap.d/debug.filters
 %config /usr/etc/neutron/rootwrap.d/dhcp.filters
