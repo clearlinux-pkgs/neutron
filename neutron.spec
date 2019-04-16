@@ -5,10 +5,10 @@
 # Source0 file verified with key 0x1A541148054E9E38 (infra-root@openstack.org)
 #
 Name     : neutron
-Version  : 14.0.0
-Release  : 79
-URL      : http://tarballs.openstack.org/neutron/neutron-14.0.0.tar.gz
-Source0  : http://tarballs.openstack.org/neutron/neutron-14.0.0.tar.gz
+Version  : 14.0.1
+Release  : 80
+URL      : http://tarballs.openstack.org/neutron/neutron-14.0.1.tar.gz
+Source0  : http://tarballs.openstack.org/neutron/neutron-14.0.1.tar.gz
 Source1  : neutron-dhcp-agent.service
 Source2  : neutron-l3-agent.service
 Source3  : neutron-linuxbridge-agent.service
@@ -16,7 +16,7 @@ Source4  : neutron-metadata-agent.service
 Source5  : neutron-openvswitch-agent.service
 Source6  : neutron-server.service
 Source7  : neutron.tmpfiles
-Source99 : http://tarballs.openstack.org/neutron/neutron-14.0.0.tar.gz.asc
+Source99 : http://tarballs.openstack.org/neutron/neutron-14.0.1.tar.gz.asc
 Summary  : OpenStack Networking
 Group    : Development/Tools
 License  : Apache-2.0
@@ -148,14 +148,14 @@ services components for the neutron package.
 
 
 %prep
-%setup -q -n neutron-14.0.0
+%setup -q -n neutron-14.0.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1554949013
+export SOURCE_DATE_EPOCH=1555450625
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
