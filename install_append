@@ -1,6 +1,7 @@
 #rm -rf %{buildroot}/usr/etc
 
-#install -d -m 755 %{buildroot}/usr/share/defaults/neutron
+install -d -m 755 %{buildroot}/usr/share/defaults/neutron
+mv %{buildroot}/usr/etc/neutron/* %{buildroot}/usr/share/defaults/neutron
 #install -d -m 755 %{buildroot}/usr/share/defaults/neutron/conf.d
 #install -p -D -m 644 etc/*.conf %{buildroot}/usr/share/defaults/neutron/
 #install -p -D -m 644 etc/*.ini %{buildroot}/usr/share/defaults/neutron/

@@ -6,7 +6,7 @@
 #
 Name     : neutron
 Version  : 14.0.1
-Release  : 81
+Release  : 82
 URL      : http://tarballs.openstack.org/neutron/neutron-14.0.1.tar.gz
 Source0  : http://tarballs.openstack.org/neutron/neutron-14.0.1.tar.gz
 Source1  : neutron-dhcp-agent.service
@@ -22,6 +22,7 @@ Group    : Development/Tools
 License  : Apache-2.0
 Requires: neutron-bin = %{version}-%{release}
 Requires: neutron-config = %{version}-%{release}
+Requires: neutron-data = %{version}-%{release}
 Requires: neutron-license = %{version}-%{release}
 Requires: neutron-python = %{version}-%{release}
 Requires: neutron-python3 = %{version}-%{release}
@@ -76,10 +77,57 @@ Requires: six
 Requires: stevedore
 Requires: tenacity
 Requires: weakrefmethod
+BuildRequires : Jinja2
+BuildRequires : Paste
+BuildRequires : PasteDeploy
+BuildRequires : Routes
+BuildRequires : SQLAlchemy
+BuildRequires : WebOb
+BuildRequires : alembic
 BuildRequires : buildreq-distutils3
+BuildRequires : debtcollector
+BuildRequires : eventlet
+BuildRequires : httplib2
+BuildRequires : keystoneauth1
+BuildRequires : keystonemiddleware
+BuildRequires : netaddr
+BuildRequires : netifaces
 BuildRequires : neutron-lib
+BuildRequires : os-ken
+BuildRequires : os-xenapi
+BuildRequires : oslo.cache
+BuildRequires : oslo.concurrency
+BuildRequires : oslo.config
+BuildRequires : oslo.context
+BuildRequires : oslo.db
+BuildRequires : oslo.i18n
+BuildRequires : oslo.log
+BuildRequires : oslo.messaging
+BuildRequires : oslo.middleware
+BuildRequires : oslo.policy
+BuildRequires : oslo.privsep
+BuildRequires : oslo.reports
+BuildRequires : oslo.rootwrap
+BuildRequires : oslo.serialization
+BuildRequires : oslo.service
+BuildRequires : oslo.upgradecheck
+BuildRequires : oslo.utils
+BuildRequires : oslo.versionedobjects
+BuildRequires : osprofiler
+BuildRequires : ovs
 BuildRequires : ovsdbapp
 BuildRequires : pbr
+BuildRequires : pecan
+BuildRequires : psutil
+BuildRequires : pyroute2
+BuildRequires : python-designateclient
+BuildRequires : python-neutronclient
+BuildRequires : python-novaclient
+BuildRequires : requests
+BuildRequires : six
+BuildRequires : stevedore
+BuildRequires : tenacity
+BuildRequires : weakrefmethod
 
 %description
 The Modular Layer 2 (ML2) plugin is a framework allowing OpenStack
@@ -97,6 +145,7 @@ organization as optional driver modules.
 %package bin
 Summary: bin components for the neutron package.
 Group: Binaries
+Requires: neutron-data = %{version}-%{release}
 Requires: neutron-config = %{version}-%{release}
 Requires: neutron-license = %{version}-%{release}
 Requires: neutron-services = %{version}-%{release}
@@ -111,6 +160,14 @@ Group: Default
 
 %description config
 config components for the neutron package.
+
+
+%package data
+Summary: data components for the neutron package.
+Group: Data
+
+%description data
+data components for the neutron package.
 
 
 %package license
@@ -155,7 +212,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1555450625
+export SOURCE_DATE_EPOCH=1559832993
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
@@ -177,6 +241,10 @@ install -m 0644 %{SOURCE5} %{buildroot}/usr/lib/systemd/system/neutron-openvswit
 install -m 0644 %{SOURCE6} %{buildroot}/usr/lib/systemd/system/neutron-server.service
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
 install -m 0644 %{SOURCE7} %{buildroot}/usr/lib/tmpfiles.d/neutron.conf
+## install_append content
+install -d -m 755 %{buildroot}/usr/share/defaults/neutron
+mv %{buildroot}/usr/etc/neutron/* %{buildroot}/usr/share/defaults/neutron
+## install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -211,20 +279,23 @@ install -m 0644 %{SOURCE7} %{buildroot}/usr/lib/tmpfiles.d/neutron.conf
 
 %files config
 %defattr(-,root,root,-)
-%config /usr/etc/neutron/api-paste.ini
-%config /usr/etc/neutron/rootwrap.conf
-%config /usr/etc/neutron/rootwrap.d/debug.filters
-%config /usr/etc/neutron/rootwrap.d/dhcp.filters
-%config /usr/etc/neutron/rootwrap.d/dibbler.filters
-%config /usr/etc/neutron/rootwrap.d/ebtables.filters
-%config /usr/etc/neutron/rootwrap.d/ipset-firewall.filters
-%config /usr/etc/neutron/rootwrap.d/iptables-firewall.filters
-%config /usr/etc/neutron/rootwrap.d/l3.filters
-%config /usr/etc/neutron/rootwrap.d/linuxbridge-plugin.filters
-%config /usr/etc/neutron/rootwrap.d/netns-cleanup.filters
-%config /usr/etc/neutron/rootwrap.d/openvswitch-plugin.filters
-%config /usr/etc/neutron/rootwrap.d/privsep.filters
 /usr/lib/tmpfiles.d/neutron.conf
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/defaults/neutron/api-paste.ini
+/usr/share/defaults/neutron/rootwrap.conf
+/usr/share/defaults/neutron/rootwrap.d/debug.filters
+/usr/share/defaults/neutron/rootwrap.d/dhcp.filters
+/usr/share/defaults/neutron/rootwrap.d/dibbler.filters
+/usr/share/defaults/neutron/rootwrap.d/ebtables.filters
+/usr/share/defaults/neutron/rootwrap.d/ipset-firewall.filters
+/usr/share/defaults/neutron/rootwrap.d/iptables-firewall.filters
+/usr/share/defaults/neutron/rootwrap.d/l3.filters
+/usr/share/defaults/neutron/rootwrap.d/linuxbridge-plugin.filters
+/usr/share/defaults/neutron/rootwrap.d/netns-cleanup.filters
+/usr/share/defaults/neutron/rootwrap.d/openvswitch-plugin.filters
+/usr/share/defaults/neutron/rootwrap.d/privsep.filters
 
 %files license
 %defattr(0644,root,root,0755)
