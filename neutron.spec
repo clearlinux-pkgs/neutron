@@ -5,10 +5,10 @@
 # Source0 file verified with key 0xFC43F0EE211DFED8 (infra-root@openstack.org)
 #
 Name     : neutron
-Version  : 14.0.2
-Release  : 84
-URL      : http://tarballs.openstack.org/neutron/neutron-14.0.2.tar.gz
-Source0  : http://tarballs.openstack.org/neutron/neutron-14.0.2.tar.gz
+Version  : 15.0.0
+Release  : 85
+URL      : http://tarballs.openstack.org/neutron/neutron-15.0.0.tar.gz
+Source0  : http://tarballs.openstack.org/neutron/neutron-15.0.0.tar.gz
 Source1  : neutron-dhcp-agent.service
 Source2  : neutron-l3-agent.service
 Source3  : neutron-linuxbridge-agent.service
@@ -16,7 +16,7 @@ Source4  : neutron-metadata-agent.service
 Source5  : neutron-openvswitch-agent.service
 Source6  : neutron-server.service
 Source7  : neutron.tmpfiles
-Source99 : http://tarballs.openstack.org/neutron/neutron-14.0.2.tar.gz.asc
+Source8 : http://tarballs.openstack.org/neutron/neutron-15.0.0.tar.gz.asc
 Summary  : OpenStack Networking
 Group    : Development/Tools
 License  : Apache-2.0
@@ -35,6 +35,7 @@ Requires: SQLAlchemy
 Requires: WebOb
 Requires: alembic
 Requires: debtcollector
+Requires: decorator
 Requires: eventlet
 Requires: httplib2
 Requires: keystoneauth1
@@ -42,6 +43,7 @@ Requires: keystonemiddleware
 Requires: netaddr
 Requires: netifaces
 Requires: neutron-lib
+Requires: openstacksdk
 Requires: os-ken
 Requires: os-xenapi
 Requires: oslo.cache
@@ -86,6 +88,7 @@ BuildRequires : WebOb
 BuildRequires : alembic
 BuildRequires : buildreq-distutils3
 BuildRequires : debtcollector
+BuildRequires : decorator
 BuildRequires : eventlet
 BuildRequires : httplib2
 BuildRequires : keystoneauth1
@@ -93,6 +96,7 @@ BuildRequires : keystonemiddleware
 BuildRequires : netaddr
 BuildRequires : netifaces
 BuildRequires : neutron-lib
+BuildRequires : openstacksdk
 BuildRequires : os-ken
 BuildRequires : os-xenapi
 BuildRequires : oslo.cache
@@ -205,14 +209,15 @@ services components for the neutron package.
 
 
 %prep
-%setup -q -n neutron-14.0.2
+%setup -q -n neutron-15.0.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1561966672
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1571240824
+# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -228,7 +233,7 @@ python3 setup.py build
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/neutron
-cp LICENSE %{buildroot}/usr/share/package-licenses/neutron/LICENSE
+cp %{_builddir}/neutron-15.0.0/LICENSE %{buildroot}/usr/share/package-licenses/neutron/294b43b2cec9919063be1a3b49e8722648424779
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -242,6 +247,8 @@ install -m 0644 %{SOURCE5} %{buildroot}/usr/lib/systemd/system/neutron-openvswit
 install -m 0644 %{SOURCE6} %{buildroot}/usr/lib/systemd/system/neutron-server.service
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
 install -m 0644 %{SOURCE7} %{buildroot}/usr/lib/tmpfiles.d/neutron.conf
+## Remove excluded files
+rm -f %{buildroot}/etc/init.d/neutron-server
 ## install_append content
 install -d -m 755 %{buildroot}/usr/share/defaults/neutron
 mv %{buildroot}/usr/etc/neutron/* %{buildroot}/usr/share/defaults/neutron
@@ -300,7 +307,7 @@ mv %{buildroot}/usr/etc/neutron/* %{buildroot}/usr/share/defaults/neutron
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/neutron/LICENSE
+/usr/share/package-licenses/neutron/294b43b2cec9919063be1a3b49e8722648424779
 
 %files python
 %defattr(-,root,root,-)
