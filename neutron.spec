@@ -6,7 +6,7 @@
 #
 Name     : neutron
 Version  : 15.0.1
-Release  : 87
+Release  : 88
 URL      : http://tarballs.openstack.org/neutron/neutron-15.0.1.tar.gz
 Source0  : http://tarballs.openstack.org/neutron/neutron-15.0.1.tar.gz
 Source1  : neutron-dhcp-agent.service
