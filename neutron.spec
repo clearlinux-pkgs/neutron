@@ -5,10 +5,10 @@
 # Source0 file verified with key 0x4F398DEAE440091C (infra-root@openstack.org)
 #
 Name     : neutron
-Version  : 15.0.1
-Release  : 88
-URL      : http://tarballs.openstack.org/neutron/neutron-15.0.1.tar.gz
-Source0  : http://tarballs.openstack.org/neutron/neutron-15.0.1.tar.gz
+Version  : 15.0.2
+Release  : 89
+URL      : http://tarballs.openstack.org/neutron/neutron-15.0.2.tar.gz
+Source0  : http://tarballs.openstack.org/neutron/neutron-15.0.2.tar.gz
 Source1  : neutron-dhcp-agent.service
 Source2  : neutron-l3-agent.service
 Source3  : neutron-linuxbridge-agent.service
@@ -16,7 +16,7 @@ Source4  : neutron-metadata-agent.service
 Source5  : neutron-openvswitch-agent.service
 Source6  : neutron-server.service
 Source7  : neutron.tmpfiles
-Source8  : http://tarballs.openstack.org/neutron/neutron-15.0.1.tar.gz.asc
+Source8  : http://tarballs.openstack.org/neutron/neutron-15.0.2.tar.gz.asc
 Summary  : OpenStack Networking
 Group    : Development/Tools
 License  : Apache-2.0
@@ -209,15 +209,15 @@ services components for the neutron package.
 
 
 %prep
-%setup -q -n neutron-15.0.1
-cd %{_builddir}/neutron-15.0.1
+%setup -q -n neutron-15.0.2
+cd %{_builddir}/neutron-15.0.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1576777628
+export SOURCE_DATE_EPOCH=1582042970
 # -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
@@ -234,7 +234,7 @@ python3 setup.py build
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/neutron
-cp %{_builddir}/neutron-15.0.1/LICENSE %{buildroot}/usr/share/package-licenses/neutron/294b43b2cec9919063be1a3b49e8722648424779
+cp %{_builddir}/neutron-15.0.2/LICENSE %{buildroot}/usr/share/package-licenses/neutron/294b43b2cec9919063be1a3b49e8722648424779
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
