@@ -6,7 +6,7 @@
 #
 Name     : neutron
 Version  : 15.0.2
-Release  : 89
+Release  : 90
 URL      : http://tarballs.openstack.org/neutron/neutron-15.0.2.tar.gz
 Source0  : http://tarballs.openstack.org/neutron/neutron-15.0.2.tar.gz
 Source1  : neutron-dhcp-agent.service
@@ -195,6 +195,7 @@ python components for the neutron package.
 Summary: python3 components for the neutron package.
 Group: Default
 Requires: python3-core
+Provides: pypi(neutron)
 
 %description python3
 python3 components for the neutron package.
@@ -217,7 +218,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1582042970
+export SOURCE_DATE_EPOCH=1583186457
 # -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
