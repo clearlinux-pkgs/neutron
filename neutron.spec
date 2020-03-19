@@ -6,7 +6,7 @@
 #
 Name     : neutron
 Version  : 15.0.2
-Release  : 90
+Release  : 91
 URL      : http://tarballs.openstack.org/neutron/neutron-15.0.2.tar.gz
 Source0  : http://tarballs.openstack.org/neutron/neutron-15.0.2.tar.gz
 Source1  : neutron-dhcp-agent.service
@@ -134,17 +134,8 @@ BuildRequires : tenacity
 BuildRequires : weakrefmethod
 
 %description
-The Modular Layer 2 (ML2) plugin is a framework allowing OpenStack
-Networking to simultaneously utilize the variety of layer 2 networking
-technologies found in complex real-world data centers. It supports the
-Open vSwitch, Linux bridge, and Hyper-V L2 agents, replacing and
-deprecating the monolithic plugins previously associated with those
-agents, and can also support hardware devices and SDN controllers. The
-ML2 framework is intended to greatly simplify adding support for new
-L2 networking technologies, requiring much less initial and ongoing
-effort than would be required for an additional monolithic core
-plugin. It is also intended to foster innovation through its
-organization as optional driver modules.
+Team and repository tags
+        ========================
 
 %package bin
 Summary: bin components for the neutron package.
@@ -196,6 +187,58 @@ Summary: python3 components for the neutron package.
 Group: Default
 Requires: python3-core
 Provides: pypi(neutron)
+Requires: pypi(alembic)
+Requires: pypi(debtcollector)
+Requires: pypi(decorator)
+Requires: pypi(eventlet)
+Requires: pypi(httplib2)
+Requires: pypi(jinja2)
+Requires: pypi(keystoneauth1)
+Requires: pypi(keystonemiddleware)
+Requires: pypi(netaddr)
+Requires: pypi(netifaces)
+Requires: pypi(neutron_lib)
+Requires: pypi(openstacksdk)
+Requires: pypi(os_ken)
+Requires: pypi(os_vif)
+Requires: pypi(os_xenapi)
+Requires: pypi(oslo.cache)
+Requires: pypi(oslo.concurrency)
+Requires: pypi(oslo.config)
+Requires: pypi(oslo.context)
+Requires: pypi(oslo.db)
+Requires: pypi(oslo.i18n)
+Requires: pypi(oslo.log)
+Requires: pypi(oslo.messaging)
+Requires: pypi(oslo.middleware)
+Requires: pypi(oslo.policy)
+Requires: pypi(oslo.privsep)
+Requires: pypi(oslo.reports)
+Requires: pypi(oslo.rootwrap)
+Requires: pypi(oslo.serialization)
+Requires: pypi(oslo.service)
+Requires: pypi(oslo.upgradecheck)
+Requires: pypi(oslo.utils)
+Requires: pypi(oslo.versionedobjects)
+Requires: pypi(osprofiler)
+Requires: pypi(ovs)
+Requires: pypi(ovsdbapp)
+Requires: pypi(paste)
+Requires: pypi(pastedeploy)
+Requires: pypi(pbr)
+Requires: pypi(pecan)
+Requires: pypi(psutil)
+Requires: pypi(pyroute2)
+Requires: pypi(python_designateclient)
+Requires: pypi(python_neutronclient)
+Requires: pypi(python_novaclient)
+Requires: pypi(requests)
+Requires: pypi(routes)
+Requires: pypi(six)
+Requires: pypi(sqlalchemy)
+Requires: pypi(stevedore)
+Requires: pypi(tenacity)
+Requires: pypi(webob)
 
 %description python3
 python3 components for the neutron package.
@@ -218,8 +261,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1583186457
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1584644054
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
