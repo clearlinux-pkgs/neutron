@@ -5,10 +5,10 @@
 # Source0 file verified with key 0x4F398DEAE440091C (infra-root@openstack.org)
 #
 Name     : neutron
-Version  : 15.0.2
-Release  : 91
-URL      : http://tarballs.openstack.org/neutron/neutron-15.0.2.tar.gz
-Source0  : http://tarballs.openstack.org/neutron/neutron-15.0.2.tar.gz
+Version  : 16.0.0
+Release  : 92
+URL      : http://tarballs.openstack.org/neutron/neutron-16.0.0.tar.gz
+Source0  : http://tarballs.openstack.org/neutron/neutron-16.0.0.tar.gz
 Source1  : neutron-dhcp-agent.service
 Source2  : neutron-l3-agent.service
 Source3  : neutron-linuxbridge-agent.service
@@ -16,7 +16,7 @@ Source4  : neutron-metadata-agent.service
 Source5  : neutron-openvswitch-agent.service
 Source6  : neutron-server.service
 Source7  : neutron.tmpfiles
-Source8  : http://tarballs.openstack.org/neutron/neutron-15.0.2.tar.gz.asc
+Source8  : http://tarballs.openstack.org/neutron/neutron-16.0.0.tar.gz.asc
 Summary  : OpenStack Networking
 Group    : Development/Tools
 License  : Apache-2.0
@@ -34,9 +34,11 @@ Requires: Routes
 Requires: SQLAlchemy
 Requires: WebOb
 Requires: alembic
+Requires: click
 Requires: debtcollector
 Requires: decorator
 Requires: eventlet
+Requires: futurist
 Requires: httplib2
 Requires: keystoneauth1
 Requires: keystonemiddleware
@@ -70,6 +72,7 @@ Requires: ovsdbapp
 Requires: pbr
 Requires: pecan
 Requires: psutil
+Requires: pyOpenSSL
 Requires: pyroute2
 Requires: python-designateclient
 Requires: python-neutronclient
@@ -78,7 +81,7 @@ Requires: requests
 Requires: six
 Requires: stevedore
 Requires: tenacity
-Requires: weakrefmethod
+Requires: tooz
 BuildRequires : Jinja2
 BuildRequires : Paste
 BuildRequires : PasteDeploy
@@ -87,9 +90,11 @@ BuildRequires : SQLAlchemy
 BuildRequires : WebOb
 BuildRequires : alembic
 BuildRequires : buildreq-distutils3
+BuildRequires : click
 BuildRequires : debtcollector
 BuildRequires : decorator
 BuildRequires : eventlet
+BuildRequires : futurist
 BuildRequires : httplib2
 BuildRequires : keystoneauth1
 BuildRequires : keystonemiddleware
@@ -123,6 +128,7 @@ BuildRequires : ovsdbapp
 BuildRequires : pbr
 BuildRequires : pecan
 BuildRequires : psutil
+BuildRequires : pyOpenSSL
 BuildRequires : pyroute2
 BuildRequires : python-designateclient
 BuildRequires : python-neutronclient
@@ -131,11 +137,11 @@ BuildRequires : requests
 BuildRequires : six
 BuildRequires : stevedore
 BuildRequires : tenacity
-BuildRequires : weakrefmethod
+BuildRequires : tooz
 
 %description
-Team and repository tags
-        ========================
+OpenStack Neutron
+        =================
 
 %package bin
 Summary: bin components for the neutron package.
@@ -191,6 +197,7 @@ Requires: pypi(alembic)
 Requires: pypi(debtcollector)
 Requires: pypi(decorator)
 Requires: pypi(eventlet)
+Requires: pypi(futurist)
 Requires: pypi(httplib2)
 Requires: pypi(jinja2)
 Requires: pypi(keystoneauth1)
@@ -228,6 +235,7 @@ Requires: pypi(pastedeploy)
 Requires: pypi(pbr)
 Requires: pypi(pecan)
 Requires: pypi(psutil)
+Requires: pypi(pyopenssl)
 Requires: pypi(pyroute2)
 Requires: pypi(python_designateclient)
 Requires: pypi(python_neutronclient)
@@ -238,6 +246,7 @@ Requires: pypi(six)
 Requires: pypi(sqlalchemy)
 Requires: pypi(stevedore)
 Requires: pypi(tenacity)
+Requires: pypi(tooz)
 Requires: pypi(webob)
 
 %description python3
@@ -253,22 +262,22 @@ services components for the neutron package.
 
 
 %prep
-%setup -q -n neutron-15.0.2
-cd %{_builddir}/neutron-15.0.2
+%setup -q -n neutron-16.0.0
+cd %{_builddir}/neutron-16.0.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1584644054
+export SOURCE_DATE_EPOCH=1589383327
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
@@ -277,7 +286,7 @@ python3 setup.py build
 export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/neutron
-cp %{_builddir}/neutron-15.0.2/LICENSE %{buildroot}/usr/share/package-licenses/neutron/294b43b2cec9919063be1a3b49e8722648424779
+cp %{_builddir}/neutron-16.0.0/LICENSE %{buildroot}/usr/share/package-licenses/neutron/294b43b2cec9919063be1a3b49e8722648424779
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -333,17 +342,20 @@ mv %{buildroot}/usr/etc/neutron/* %{buildroot}/usr/share/defaults/neutron
 /usr/bin/neutron-metering-agent
 /usr/bin/neutron-netns-cleanup
 /usr/bin/neutron-openvswitch-agent
+/usr/bin/neutron-ovn-db-sync-util
+/usr/bin/neutron-ovn-metadata-agent
+/usr/bin/neutron-ovn-migration-mtu
 /usr/bin/neutron-ovs-cleanup
 /usr/bin/neutron-pd-notify
 /usr/bin/neutron-rootwrap
 /usr/bin/neutron-rootwrap-daemon
-/usr/bin/neutron-rootwrap-xen-dom0
 /usr/bin/neutron-rpc-server
 /usr/bin/neutron-sanity-check
 /usr/bin/neutron-server
 /usr/bin/neutron-sriov-nic-agent
 /usr/bin/neutron-status
 /usr/bin/neutron-usage-audit
+/usr/bin/ovn_migration.sh
 
 %files config
 %defattr(-,root,root,-)
@@ -351,6 +363,35 @@ mv %{buildroot}/usr/etc/neutron/* %{buildroot}/usr/share/defaults/neutron
 
 %files data
 %defattr(-,root,root,-)
+/usr/share/ansible/neutron-ovn-migration/playbooks/ovn-migration.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/reduce-dhcp-renewal-time.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/backup/tasks/main.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/delete-neutron-resources/defaults/main.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/delete-neutron-resources/tasks/main.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/delete-neutron-resources/templates/delete-neutron-resources.sh.j2
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/migration/defaults/main.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/migration/tasks/activate-ovn.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/migration/tasks/cleanup-dataplane.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/migration/tasks/clone-dataplane.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/migration/tasks/main.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/migration/tasks/sync-dbs.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/migration/templates/activate-ovn.sh.j2
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/migration/templates/clone-br-int.sh.j2
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/post-migration/defaults/main.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/post-migration/tasks/main.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/pre-migration/tasks/main.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/resources/cleanup/defaults/main.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/resources/cleanup/tasks/main.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/resources/cleanup/templates/cleanup-resources.sh.j2
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/resources/create/defaults/main.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/resources/create/tasks/main.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/resources/create/templates/create-resources.sh.j2
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/resources/validate/defaults/main.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/resources/validate/tasks/main.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/resources/validate/templates/validate-resources.sh.j2
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/tripleo-update/defaults/main.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/tripleo-update/tasks/main.yml
+/usr/share/ansible/neutron-ovn-migration/playbooks/roles/tripleo-update/templates/generate-ovn-extras.sh.j2
 /usr/share/defaults/neutron/api-paste.ini
 /usr/share/defaults/neutron/rootwrap.conf
 /usr/share/defaults/neutron/rootwrap.d/debug.filters
